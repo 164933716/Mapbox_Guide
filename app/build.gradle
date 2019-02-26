@@ -1,0 +1,40 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.mapbox.guide"
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+repositories {
+    mavenCentral()
+    maven { url "https://mapbox.bintray.com/mapbox" }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.1.0-alpha02'
+    implementation 'com.google.android.material:material:1.1.0-alpha03'
+    api 'com.jakewharton:butterknife:10.1.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-china:1.2.0'
+//    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-china:2.0.0'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:6.8.0'
+//    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-building-v7:0.5.0'
+    implementation group: 'com.mapbox.mapboxsdk', name: 'mapbox-android-plugin-building', version: '0.4.0'
+    implementation project(path: ':ui')
+}

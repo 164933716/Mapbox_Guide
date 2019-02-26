@@ -1,19 +1,18 @@
 package com.mapbox.guide;
 
 import com.mapbox.mapboxsdk.Mapbox;
-import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.plugins.china.constants.ChinaStyle;
 import com.mapbox.mapboxsdk.plugins.china.maps.ChinaMapView;
-
-import androidx.annotation.NonNull;
 
 public class SimpleChinaMapViewActivity extends MapBaseActivity {
     @Override
-    protected MapView onCreateMapView() {
+    protected void onCreate() {
         Mapbox.getInstance(context,App.chinaToken);
-        return new ChinaMapView(context);
+        setContentView(R.layout.activity_map_china);
     }
-
+    @Override
+    protected MapView onMapView() {
+        ChinaMapView mapView = findViewById(R.id.mapView);
+        return mapView;
+    }
 }

@@ -14,7 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ScrollingActivity extends BaseActivity {
+public class MainActivity extends BaseActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -28,19 +28,23 @@ public class ScrollingActivity extends BaseActivity {
     Button chinaMap;
     @BindView(R.id.globalMap)
     Button globalMap;
+    @BindView(R.id.chinaMapBuilding)
+    Button chinaMapBuilding;
+    @BindView(R.id.globalMapBuilding)
+    Button globalMapBuilding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scrolling);
-        ButterKnife.bind(this);
+        setContentView(R.layout.activity_main);
         toolbar.setTitle("Guide");
         setSupportActionBar(toolbar);
     }
 
     @OnClick(R.id.fab)
     public void onViewClicked() {
-
+        Intent intent = new Intent(context, BuildingPluginActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.chinaMap)
@@ -52,6 +56,18 @@ public class ScrollingActivity extends BaseActivity {
     @OnClick(R.id.globalMap)
     public void onGlobalMapClicked() {
         Intent intent = new Intent(context, SimpleMapViewActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.chinaMapBuilding)
+    public void onChinaMapBuildingClicked() {
+        Intent intent = new Intent(context, ChinaBuildingPluginActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.globalMapBuilding)
+    public void onGlobalMapBuildingClicked() {
+        Intent intent = new Intent(context, BuildingPluginActivity.class);
         startActivity(intent);
     }
 }

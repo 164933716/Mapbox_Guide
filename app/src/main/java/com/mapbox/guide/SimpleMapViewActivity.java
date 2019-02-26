@@ -1,13 +1,21 @@
 package com.mapbox.guide;
 
+import android.annotation.SuppressLint;
+
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.maps.MapView;
 
 public class SimpleMapViewActivity extends MapBaseActivity {
 
     @Override
-    protected MapView onCreateMapView() {
+    protected void onCreate() {
         Mapbox.getInstance(context, App.globalToken);
-        return new MapView(context);
+        setContentView(R.layout.activity_map_global);
+    }
+
+    @Override
+    protected MapView onMapView() {
+        @SuppressLint("NotChinaMapView") MapView mapView = findViewById(R.id.mapView);
+        return mapView;
     }
 }

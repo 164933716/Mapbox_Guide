@@ -1,13 +1,15 @@
-package com.mapbox.guide;
+package com.mapbox.china;
 
+import com.mapbox.guide.App;
+import com.mapbox.guide.R;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.plugins.china.maps.ChinaMapView;
 
-public class SimpleChinaMapViewActivity extends MapBaseActivity {
+public class SimpleChinaMapViewActivity extends com.mapbox.china.MapBaseActivity {
     @Override
     protected void onCreate() {
-        Mapbox.getInstance(context,App.chinaToken);
+        Mapbox.getInstance(context, App.chinaToken);
         setContentView(R.layout.activity_map_china);
     }
     @Override

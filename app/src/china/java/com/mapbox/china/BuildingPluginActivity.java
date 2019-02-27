@@ -1,12 +1,14 @@
-package com.mapbox.guide;
+package com.mapbox.china;
 
+import com.mapbox.guide.App;
+import com.mapbox.guide.R;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.plugins.building.BuildingPlugin;
 
 import butterknife.OnClick;
 
-public class BuildingPluginActivity extends SimpleMapViewActivity {
+public class BuildingPluginActivity extends com.mapbox.china.SimpleMapViewActivity {
 
     @Override
     protected void onCreate() {

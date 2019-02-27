@@ -1,4 +1,4 @@
-package com.mapbox.guide;
+package com.mapbox.global;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,13 +8,13 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ksy.ui.BaseActivity;
+import com.mapbox.guide.R;
 
 import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity {
+public class GlobalMainActivity extends BaseActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -24,12 +24,8 @@ public class MainActivity extends BaseActivity {
     AppBarLayout appBar;
     @BindView(R.id.fab)
     FloatingActionButton fab;
-    @BindView(R.id.chinaMap)
-    Button chinaMap;
     @BindView(R.id.globalMap)
     Button globalMap;
-    @BindView(R.id.chinaMapBuilding)
-    Button chinaMapBuilding;
     @BindView(R.id.globalMapBuilding)
     Button globalMapBuilding;
 
@@ -43,25 +39,14 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.fab)
     public void onViewClicked() {
-        Intent intent = new Intent(context, BuildingPluginActivity.class);
+        Intent intent = new Intent(context, AdjustExtrusionLightActivity.class);
         startActivity(intent);
     }
 
-    @OnClick(R.id.chinaMap)
-    public void onChinaMapClicked() {
-        Intent intent = new Intent(context, SimpleChinaMapViewActivity.class);
-        startActivity(intent);
-    }
 
     @OnClick(R.id.globalMap)
     public void onGlobalMapClicked() {
         Intent intent = new Intent(context, SimpleMapViewActivity.class);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.chinaMapBuilding)
-    public void onChinaMapBuildingClicked() {
-        Intent intent = new Intent(context, ChinaBuildingPluginActivity.class);
         startActivity(intent);
     }
 

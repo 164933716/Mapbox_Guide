@@ -3,11 +3,11 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.mapbox.guide"
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 19
         versionCode 1
         versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -15,26 +15,44 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    def isGlobal
+    flavorDimensions "default"
+    productFlavors {
+        global {
+            applicationId "com.mapbox.guide.global"
+            resValue "string", "appName", "Guide_Global"
+            isGlobal = true
+        }
+
+        china {
+            applicationId "com.mapbox.guide.china"
+            resValue "string", "appName", "Guide_China"
+            isGlobal = false
+            repositories {
+                mavenCentral()
+                maven { url "https://mapbox.bintray.com/mapbox" }
+            }
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-}
-repositories {
-    mavenCentral()
-    maven { url "https://mapbox.bintray.com/mapbox" }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha02'
     implementation 'com.google.android.material:material:1.1.0-alpha03'
-    api 'com.jakewharton:butterknife:10.1.0'
+    implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
-    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-china:1.2.0'
+    chinaImplementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-china:1.2.0'
 //    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-china:2.0.0'
-    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:6.8.0'
-//    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-building-v7:0.5.0'
-    implementation group: 'com.mapbox.mapboxsdk', name: 'mapbox-android-plugin-building', version: '0.4.0'
+    chinaImplementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:6.8.0'
+    globalImplementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:7.1.2'
+    chinaImplementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-building:0.4.0'
+    globalImplementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-building-v7:0.5.0'
     implementation project(path: ':ui')
+    implementation 'org.jetbrains:annotations:15.0'
 }

@@ -1,17 +1,16 @@
-package com.mapbox.guide;
+package com.mapbox.global;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import com.ksy.ui.BaseActivity;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
-import com.mapbox.mapboxsdk.constants.Style;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
-import com.mapbox.mapboxsdk.plugins.china.constants.ChinaStyle;
-import com.mapbox.mapboxsdk.plugins.china.maps.ChinaMapView;
+import com.mapbox.mapboxsdk.maps.Style;
+
 
 import org.jetbrains.annotations.NotNull;
 
@@ -42,25 +41,15 @@ public abstract class MapBaseActivity extends BaseActivity implements OnMapReady
     @Override
     public void onMapReady(MapboxMap mapboxMap) {
         this.mapboxMap = mapboxMap;
-        if (mapView instanceof ChinaMapView) {
-            mapboxMap.setStyle(ChinaStyle.MAPBOX_STREETS_CHINESE, new MapboxMap.OnStyleLoadedListener() {
-                @Override
-                public void onStyleLoaded(@NonNull String style) {
-                    onMapReady(style);
-                }
-            });
-        } else {
-            mapboxMap.setStyle(Style.MAPBOX_STREETS, new MapboxMap.OnStyleLoadedListener() {
-                @Override
-                public void onStyleLoaded(@NonNull String style) {
-                    onMapReady(style);
-                }
-            });
-        }
+        mapboxMap.setStyle(Style.MAPBOX_STREETS, new Style.OnStyleLoaded() {
+            @Override
+            public void onStyleLoaded(@NonNull Style style) {
+                onMapReady(style);
+            }
+        });
     }
 
-    protected void onMapReady(String style) {
-    }
+    protected abstract void onMapReady(Style style);
 
     protected void animateCamera(LatLng point, boolean zoom) {
         animateCamera(point, zoom, null);

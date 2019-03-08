@@ -3,12 +3,15 @@ package com.ksy.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.util.DisplayMetrics;
+import android.util.Log;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -19,6 +22,14 @@ import java.util.Random;
 import androidx.core.content.FileProvider;
 
 public class AndroidUtil {
+
+    public static int dip2px(float dp) {
+        DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
+        float px = dp * ((float) displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+        return (int) px;
+    }
+
+
     public static Uri getFileUri(Context context, File file) {
         Uri fileUri;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -46,6 +57,7 @@ public class AndroidUtil {
         intent.setType("image/*");
         activity.startActivityForResult(intent, requestCode);//打开相册
     }
+
     public static void chooseVideo(Activity activity, int requestCode) {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("video/*");
@@ -138,7 +150,8 @@ public class AndroidUtil {
         }
         return filePath;
     }
- public static String getRealVideoPathFromUri_AboveApi19(Context context, Uri uri) {
+
+    public static String getRealVideoPathFromUri_AboveApi19(Context context, Uri uri) {
         String filePath = null;
         String wholeID = DocumentsContract.getDocumentId(uri);
 
@@ -159,7 +172,7 @@ public class AndroidUtil {
         return filePath;
     }
 
-    public static  boolean fileIsError(File file) {
+    public static boolean fileIsError(File file) {
         if (file == null || !file.exists() || !file.isFile() || !file.canRead() || file.length() <= 0) {
             return true;
         }

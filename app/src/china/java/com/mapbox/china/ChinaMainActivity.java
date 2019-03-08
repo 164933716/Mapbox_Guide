@@ -10,7 +10,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ksy.ui.BaseActivity;
 import com.mapbox.guide.R;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -23,8 +22,6 @@ public class ChinaMainActivity extends BaseActivity {
     CollapsingToolbarLayout toolbarLayout;
     @BindView(R.id.app_bar)
     AppBarLayout appBar;
-    @BindView(R.id.fab)
-    FloatingActionButton fab;
     @BindView(R.id.chinaMap)
     Button chinaMap;
     @BindView(R.id.globalMap)
@@ -42,11 +39,6 @@ public class ChinaMainActivity extends BaseActivity {
         setSupportActionBar(toolbar);
     }
 
-    @OnClick(R.id.fab)
-    public void onViewClicked() {
-        Intent intent = new Intent(context, SrcBuildingPluginActivity.class);
-        startActivity(intent);
-    }
 
     @OnClick(R.id.chinaMap)
     public void onChinaMapClicked() {
@@ -69,6 +61,12 @@ public class ChinaMainActivity extends BaseActivity {
     @OnClick(R.id.globalMapBuilding)
     public void onGlobalMapBuildingClicked() {
         Intent intent = new Intent(context, BuildingPluginActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.chinaMapDownload)
+    public void onChinaMapDownloadClicked() {
+        Intent intent = new Intent(context, MapDownloadChinaActivity.class);
         startActivity(intent);
     }
 }

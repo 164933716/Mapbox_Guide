@@ -30,6 +30,15 @@
         <activity
             android:name="com.mapbox.china.SrcBuildingPluginActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mapbox.china.MapDownloadChinaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mapbox.china.MapOfflineListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mapbox.china.NoteActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

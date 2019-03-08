@@ -40,5 +40,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/text_margin"
             android:text="Global Map Building" />
+
+        <Button
+            android:id="@+id/chinaMapDownload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/text_margin"
+            android:text="China Map Download" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

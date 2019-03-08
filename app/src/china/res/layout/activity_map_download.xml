@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/chinamapview" />
+
+    <FrameLayout
+        android:id="@+id/selectionBox"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:alpha="0.3"
+        android:background="#A4A4E5" />
+
+    <Button
+        android:id="@+id/vList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:text="下载管理" />
+
+    <Button
+        android:id="@+id/vEnter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/margin"
+        android:text="下载" />
+</RelativeLayout>

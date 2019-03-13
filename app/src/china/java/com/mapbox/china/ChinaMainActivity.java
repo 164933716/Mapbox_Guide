@@ -1,35 +1,25 @@
 package com.mapbox.china;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ksy.ui.BaseActivity;
+import com.ksy.util.AndroidUtil;
+import com.mapbox.china.demo.BasicMapActivity;
 import com.mapbox.guide.R;
 
 import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
-import butterknife.OnClick;
 
 public class ChinaMainActivity extends BaseActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.toolbar_layout)
-    CollapsingToolbarLayout toolbarLayout;
-    @BindView(R.id.app_bar)
-    AppBarLayout appBar;
-    @BindView(R.id.chinaMap)
-    Button chinaMap;
-    @BindView(R.id.globalMap)
-    Button globalMap;
-    @BindView(R.id.chinaMapBuilding)
-    Button chinaMapBuilding;
-    @BindView(R.id.globalMapBuilding)
-    Button globalMapBuilding;
+    @BindView(R.id.buttonContainer)
+    LinearLayout buttonContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,36 +27,23 @@ public class ChinaMainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         toolbar.setTitle("Guide");
         setSupportActionBar(toolbar);
+        buttonContainer.addView(createButton("地图展示", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                jump(context, BasicMapActivity.class);
+            }
+        }));
+    }
+
+    private Button createButton(String text, View.OnClickListener onClickListener) {
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.topMargin = AndroidUtil.dip2px(8);
+        Button button = new Button(context);
+        button.setLayoutParams(params);
+        button.setText(text);
+        button.setOnClickListener(onClickListener);
+        return button;
     }
 
 
-    @OnClick(R.id.chinaMap)
-    public void onChinaMapClicked() {
-        Intent intent = new Intent(context, SimpleChinaMapViewActivity.class);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.globalMap)
-    public void onGlobalMapClicked() {
-        Intent intent = new Intent(context, SimpleMapViewActivity.class);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.chinaMapBuilding)
-    public void onChinaMapBuildingClicked() {
-        Intent intent = new Intent(context, ChinaBuildingPluginActivity.class);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.globalMapBuilding)
-    public void onGlobalMapBuildingClicked() {
-        Intent intent = new Intent(context, BuildingPluginActivity.class);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.chinaMapDownload)
-    public void onChinaMapDownloadClicked() {
-        Intent intent = new Intent(context, MapDownloadChinaActivity.class);
-        startActivity(intent);
-    }
 }

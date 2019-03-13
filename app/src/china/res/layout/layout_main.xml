@@ -8,44 +8,11 @@
     tools:showIn="@layout/activity_main">
 
     <LinearLayout
+        android:id="@+id/buttonContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/chinaMap"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/text_margin"
-            android:text="China Map" />
-
-        <Button
-            android:id="@+id/globalMap"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/text_margin"
-            android:text="Global Map" />
-
-        <Button
-            android:id="@+id/chinaMapBuilding"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/text_margin"
-            android:text="China Map Building" />
-
-        <Button
-            android:id="@+id/globalMapBuilding"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/text_margin"
-            android:text="Global Map Building" />
-
-        <Button
-            android:id="@+id/chinaMapDownload"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/text_margin"
-            android:text="China Map Download" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

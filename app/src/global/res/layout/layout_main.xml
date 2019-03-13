@@ -8,23 +8,11 @@
     tools:showIn="@layout/activity_main">
 
     <LinearLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/globalMap"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/text_margin"
-            android:text="Global Map" />
-
-        <Button
-            android:id="@+id/globalMapBuilding"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/text_margin"
-            android:text="Global Map Building" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

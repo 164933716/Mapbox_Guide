@@ -1,27 +1,17 @@
 package com.mapbox.global;
 
-import com.mapbox.guide.App;
 import com.mapbox.guide.R;
-import com.mapbox.mapboxsdk.Mapbox;
-import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.Style;
 
-public class SimpleMapViewActivity extends MapBaseActivity {
-
+public final class SimpleMapViewActivity extends GlobalBaseActivity {
     @Override
     protected void onCreate() {
-        Mapbox.getInstance(context, App.globalToken);
+        super.onCreate();
         setContentView(R.layout.activity_map_global);
     }
 
     @Override
-    protected MapView onMapView() {
-        MapView mapView = findViewById(R.id.mapView);
-        return mapView;
-    }
-
-    @Override
     protected void onMapReady(Style style) {
-
+        super.onMapReady(style);
     }
 }

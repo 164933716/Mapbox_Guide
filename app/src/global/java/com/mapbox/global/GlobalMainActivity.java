@@ -1,33 +1,24 @@
 package com.mapbox.global;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ksy.ui.BaseActivity;
+import com.ksy.util.AndroidUtil;
 import com.mapbox.guide.R;
 
 import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
-import butterknife.OnClick;
 
 public class GlobalMainActivity extends BaseActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.toolbar_layout)
-    CollapsingToolbarLayout toolbarLayout;
-    @BindView(R.id.app_bar)
-    AppBarLayout appBar;
-    @BindView(R.id.fab)
-    FloatingActionButton fab;
-    @BindView(R.id.globalMap)
-    Button globalMap;
-    @BindView(R.id.globalMapBuilding)
-    Button globalMapBuilding;
+    @BindView(R.id.container)
+    LinearLayout container;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,24 +26,41 @@ public class GlobalMainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         toolbar.setTitle("Guide");
         setSupportActionBar(toolbar);
+        createButton("地图", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                jump(context, SimpleMapViewActivity.class);
+            }
+        });
+        createButton("3D地图", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                jump(context, BuildingPluginActivity.class);
+            }
+        });
+        createButton("导航下载", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                jump(context, RouteDownloadActivity.class);
+            }
+        });
+        createButton("模拟导航", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                jump(context, SimulationRouteActivityV.class);
+            }
+        });
+
     }
 
-    @OnClick(R.id.fab)
-    public void onViewClicked() {
-        Intent intent = new Intent(context, AdjustExtrusionLightActivity.class);
-        startActivity(intent);
+    private Button createButton(String text, View.OnClickListener onClickListener) {
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.topMargin = AndroidUtil.dip2px(8);
+        Button button = new Button(context);
+        button.setText(text);
+        button.setOnClickListener(onClickListener);
+        container.addView(button, params);
+        return button;
     }
 
-
-    @OnClick(R.id.globalMap)
-    public void onGlobalMapClicked() {
-        Intent intent = new Intent(context, SimpleMapViewActivity.class);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.globalMapBuilding)
-    public void onGlobalMapBuildingClicked() {
-        Intent intent = new Intent(context, BuildingPluginActivity.class);
-        startActivity(intent);
-    }
 }

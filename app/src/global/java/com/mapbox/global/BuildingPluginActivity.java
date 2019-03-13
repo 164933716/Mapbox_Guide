@@ -1,22 +1,19 @@
 package com.mapbox.global;
 
-import com.mapbox.guide.App;
 import com.mapbox.guide.R;
-import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.Style;
 import com.mapbox.mapboxsdk.plugins.building.BuildingPlugin;
 
 import butterknife.OnClick;
 
-public class BuildingPluginActivity extends SimpleMapViewActivity {
+public final class BuildingPluginActivity extends GlobalBaseActivity {
 
     @Override
     protected void onCreate() {
-        Mapbox.getInstance(context, App.globalToken);
+        super.onCreate();
         setContentView(R.layout.activity_map_global_building);
     }
-
     @Override
     protected void onMapReady(Style style) {
         super.onMapReady(style);

@@ -19,7 +19,7 @@ import androidx.annotation.NonNull;
 /**
  * Change the camera's bearing and tilt based on device movement while viewing building extrusions
  */
-public class RotationExtrusionActivity extends SimpleMapViewActivity implements SensorEventListener {
+public class RotationExtrusionActivity extends GlobalBaseActivity implements SensorEventListener {
 
     private SensorManager sensorManager;
     private SensorControl sensorControl;
@@ -33,6 +33,7 @@ public class RotationExtrusionActivity extends SimpleMapViewActivity implements 
 
     @Override
     protected void onMapReady(Style style) {
+        super.onMapReady(style);
         setupBuildingExtrusionPlugin(style);
     }
 

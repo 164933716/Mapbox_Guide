@@ -1,0 +1,296 @@
+ChinaMap文档：v1.0
+# 文档地址 
+- [Map介绍地址](https://docs.mapbox.com/android/maps/overview/)
+    
+- [Demo源码地址](https://github.com/mapbox/mapbox-android-demo)
+    
+- [plugins源码地址](https://github.com/mapbox/mapbox-plugins-android)
+
+- [plugins介绍地址](https://docs.mapbox.com/android/plugins/overview/china/)
+
+## 前置条件
+- Android Studio
+- Mapbox Token
+- Android设备
+
+## SDK版本
+- mapbox-android-sdk:7.2.0　//基础地图ＳＤＫ
+- mapbox-android-plugin-china:2.1.0　//中国地图插件
+- mapbox-android-plugin-building-v7:0.5.0　//３Ｄ建筑物插件
+
+## Android Studio 配置工程
+1. 新建一个Android工程　注意：minSdkVersion　最小14
+```
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 19
+        versionCode 1
+        versionName "1.1"
+        vectorDrawables.useSupportLibrary = true
+    }
+```
+
+2. 在Project的build.gradle文件中配置repositories，添加maven或jcenter仓库地址
+
+```
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url "https://mapbox.bintray.com/mapbox" }
+    }
+```
+
+3. 在主工程的build.gradle文件配置dependencies
+``` 
+    dependencies {
+        implementation fileTree(dir: 'libs', include: ['*.jar'])
+        chinaImplementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-china:2.1.0'
+        globalImplementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-china:2.1.0'
+        chinaImplementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:7.2.0'
+        globalImplementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:7.2.0'
+        chinaImplementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-building-v7:0.5.0'
+        globalImplementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-building-v7:0.5.0'
+    }
+``` 
+
+## 开发注意事项
+- Mapbox Token区分：China Token对应ChinaMapView控件，需设置ChinaStyle
+- 配置权限
+```
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    
+```
+
+## 地图相关：
+### 显示地图
+```
+public class BasicMapActivity extends AppCompatActivity implements OnMapReadyCallback {
+    protected static final int CAMERA_ANIMATION_DURATION = 600;
+    protected static final int DEFAULT_CAMERA_ZOOM = 16;
+    protected MapboxMap mapboxMap;
+    protected ChinaMapView mapView;
+    private Context context;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Mapbox.getInstance(this, App.chinaToken);
+        context = this;
+        mapView = new ChinaMapView(context);
+        setContentView(mapView);
+        mapView.onCreate(savedInstanceState);
+        mapView.getMapAsync(this);
+    }
+
+    @Override
+    public void onMapReady(MapboxMap mapboxMap) {
+        this.mapboxMap = mapboxMap;
+        Style.Builder builder = new Style.Builder().fromUrl(ChinaStyle.MAPBOX_STREETS_CHINESE);
+        this.mapboxMap.setStyle(builder, new Style.OnStyleLoaded() {
+            @Override
+            public void onStyleLoaded(@NonNull Style style) {
+
+            }
+        });
+    }
+
+    protected void animateCamera(LatLng point, boolean zoom) {
+        animateCamera(point, zoom, null);
+    }
+
+    protected void animateCamera(LatLng point, boolean zoom, MapboxMap.CancelableCallback callback) {
+        if (mapboxMap == null) {
+            return;
+        }
+        if (zoom) {
+            mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(point, DEFAULT_CAMERA_ZOOM), CAMERA_ANIMATION_DURATION, callback);
+        } else {
+            mapboxMap.animateCamera(CameraUpdateFactory.newLatLng(point), CAMERA_ANIMATION_DURATION, callback);
+        }
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mapView.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mapView.onStop();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NotNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mapView.onSaveInstanceState(outState);
+    }
+}
+
+```
+
+### 显示3D地图
+```
+public class Plugin3DMapActivity extends AppCompatActivity implements OnMapReadyCallback {
+
+    @Override
+    public void onMapReady(MapboxMap mapboxMap) {
+        this.mapboxMap = mapboxMap;
+        Style.Builder builder = new Style.Builder().fromUrl(ChinaStyle.MAPBOX_STREETS_CHINESE);
+        this.mapboxMap.setStyle(builder, new Style.OnStyleLoaded() {
+            @Override
+            public void onStyleLoaded(@NonNull Style style) {
+                BuildingPlugin buildingPlugin = new BuildingPlugin(mapView, mapboxMap, style);
+                buildingPlugin.setVisibility(true);
+            }
+        });
+    }
+}
+
+```
+
+### 添加Marker
+```
+        this.mapboxMap.setStyle(builder, new Style.OnStyleLoaded() {
+            @Override
+            public void onStyleLoaded(@NonNull Style style) {
+                LatLng latLng1 = new LatLng(30.480825277565145d, 114.399720756497d);
+                LatLng latLng2 = new LatLng(31.580825277565145d, 111.499720756497d);
+                style.addImage("custom_marker", BitmapFactory.decodeResource(context.getResources(), R.drawable.mapbox_marker_icon_default));
+                allList.add(Feature.fromGeometry(Point.fromLngLat(latLng1.getLongitude(), latLng1.getLatitude()), null, "marker1", null));
+                allList.add(Feature.fromGeometry(Point.fromLngLat(latLng2.getLongitude(), latLng2.getLatitude()), null, "marker2", null));
+                style.addSource(new GeoJsonSource("custom_markers_source", FeatureCollection.fromFeatures(allList)));
+                style.addLayer(new SymbolLayer("custom_marker_layer", "custom_markers_source")
+                        .withProperties(
+                                PropertyFactory.iconAllowOverlap(true),
+                                PropertyFactory.iconIgnorePlacement(true),
+                                PropertyFactory.iconImage("custom_marker")
+                        ));
+            }
+        });
+
+```
+### 添加Line
+
+```
+    List<Point> points1 = new ArrayList<>();
+    List<Point> points2 = new ArrayList<>();
+    points1.add(Point.fromLngLat(114.399720756497d, 30.480825277565145d));
+    points1.add(Point.fromLngLat(111.499720756497d, 31.580825277565145d));
+    
+    points2.add(Point.fromLngLat(100.399720756497d, 36.480825277565145d));
+    points2.add(Point.fromLngLat(122.499720756497d, 33.580825277565145d));
+    List<Feature> features = new ArrayList<>();
+    Feature feature1 = Feature.fromGeometry(LineString.fromLngLats(points1));
+    Feature feature2 = Feature.fromGeometry(LineString.fromLngLats(points2));
+    features.add(feature1);
+    features.add(feature2);
+    style.addSource(new GeoJsonSource("custom_line_source", FeatureCollection.fromFeatures(features)));
+    style.addLayer(new LineLayer("custom_line_layer", "custom_line_source").withProperties(
+              PropertyFactory.lineWidth(5f),
+              PropertyFactory.lineColor(Color.parseColor("#e55e5e"))
+          ));
+
+```
+### 添加Map点击事件
+```
+        mapboxMap.addOnMapClickListener(new MapboxMap.OnMapClickListener() {
+            @Override
+            public boolean onMapClick(@NonNull LatLng point) {
+                Style style = mapboxMap.getStyle();
+                if (style != null) {
+                    GeoJsonSource source = (GeoJsonSource) style.getSource("custom_markers_source");
+                    final PointF pixel = mapboxMap.getProjection().toScreenLocation(point);
+                    List<Feature> features = mapboxMap.queryRenderedFeatures(pixel, "custom_marker_layer");
+                    if (features != null) {
+                        Iterator<Feature> iterator = allList.iterator();
+                        while (iterator.hasNext()) {
+                            Feature next = iterator.next();
+                            for (Feature feature : features) {
+                                if (TextUtils.equals(next.getStringProperty("name"), feature.getStringProperty("name"))) {
+                                    Boolean selected = feature.getBooleanProperty("selected");
+//                                            iterator.remove();
+                                    if (selected) {
+                                        next.properties().addProperty("selected", false);
+                                    } else {
+                                        next.properties().addProperty("selected", true);
+                                    }
+                                }
+                            }
+                        }
+                        source.setGeoJson(FeatureCollection.fromFeatures(allList));
+                    }
+//                            source.setGeoJson(FeatureCollection.fromFeatures(allList));
+                }
+                return false;
+            }
+        });
+```
+### 显示当前位置
+```
+        this.mapboxMap.setStyle(builder, new Style.OnStyleLoaded() {
+            @Override
+            public void onStyleLoaded(@NonNull Style style) {
+                enableLocationComponent(style);
+            }
+        });
+        
+         private void enableLocationComponent(@NonNull Style loadedMapStyle) {
+                // Check if permissions are enabled and if not request
+                if (PermissionsManager.areLocationPermissionsGranted(this)) {
+        
+                    // Get an instance of the component
+                    LocationComponent locationComponent = mapboxMap.getLocationComponent();
+        
+                    // Activate with options
+                    locationComponent.activateLocationComponent(this, loadedMapStyle);
+        
+                    // Enable to make component visible
+                    locationComponent.setLocationComponentEnabled(true);
+        
+                    // Set the component's camera mode
+                    locationComponent.setCameraMode(CameraMode.TRACKING);
+        
+                    // Set the component's render mode
+                    locationComponent.setRenderMode(RenderMode.COMPASS);
+                } else {
+                    permissionsManager = new PermissionsManager(this);
+                    permissionsManager.requestLocationPermissions(this);
+                }
+         }
+
+```
+

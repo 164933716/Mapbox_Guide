@@ -20,6 +20,7 @@ import com.mapbox.mapboxsdk.annotations.PolygonOptions;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.geometry.LatLngBounds;
+import com.mapbox.mapboxsdk.maps.Style;
 import com.mapbox.mapboxsdk.offline.OfflineManager;
 import com.mapbox.mapboxsdk.offline.OfflineRegion;
 import com.mapbox.mapboxsdk.offline.OfflineRegionDefinition;
@@ -60,7 +61,7 @@ public class MapOfflineListActivity extends SimpleChinaMapViewActivity {
     }
 
     @Override
-    protected void onMapReady(String style) {
+    protected void onMapReady(Style style) {
         super.onMapReady(style);
         BuildingPlugin buildingPlugin = new BuildingPlugin(mapView, mapboxMap, style);
         buildingPlugin.setVisibility(true);

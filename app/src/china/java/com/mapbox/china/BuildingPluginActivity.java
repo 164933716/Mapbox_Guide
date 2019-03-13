@@ -4,6 +4,7 @@ import com.mapbox.guide.App;
 import com.mapbox.guide.R;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.mapbox.mapboxsdk.maps.Style;
 import com.mapbox.mapboxsdk.plugins.building.BuildingPlugin;
 
 import butterknife.OnClick;
@@ -17,7 +18,7 @@ public class BuildingPluginActivity extends com.mapbox.china.SimpleMapViewActivi
     }
 
     @Override
-    protected void onMapReady(String style) {
+    protected void onMapReady(Style style) {
         super.onMapReady(style);
         BuildingPlugin buildingPlugin = new BuildingPlugin(mapView, mapboxMap, style);
         buildingPlugin.setVisibility(true);

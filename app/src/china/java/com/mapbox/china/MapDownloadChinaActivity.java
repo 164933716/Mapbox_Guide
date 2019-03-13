@@ -14,6 +14,7 @@ import com.mapbox.guide.R;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.geometry.LatLngBounds;
+import com.mapbox.mapboxsdk.maps.Style;
 import com.mapbox.mapboxsdk.offline.OfflineManager;
 import com.mapbox.mapboxsdk.offline.OfflineRegion;
 import com.mapbox.mapboxsdk.offline.OfflineRegionError;
@@ -45,7 +46,7 @@ public class MapDownloadChinaActivity extends SimpleMapViewActivity {
     }
 
     @Override
-    protected void onMapReady(String style) {
+    protected void onMapReady(Style style) {
         super.onMapReady(style);
         offlineManager = OfflineManager.getInstance(context);
         vEnter.setEnabled(true);
@@ -94,7 +95,7 @@ public class MapDownloadChinaActivity extends SimpleMapViewActivity {
         double minZoom = mapboxMap.getCameraPosition().zoom;
         double maxZoom = mapboxMap.getMaxZoomLevel();
         OfflineTilePyramidRegionDefinition definition = new OfflineTilePyramidRegionDefinition(
-                mapboxMap.getStyleUrl(),
+                mapboxMap.getStyle().getUrl(),
                 latLngBounds,
                 minZoom,
                 maxZoom,

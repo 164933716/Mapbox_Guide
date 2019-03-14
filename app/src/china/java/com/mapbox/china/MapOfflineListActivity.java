@@ -41,7 +41,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 
-public class MapOfflineListActivity extends SimpleChinaMapViewActivity {
+public class MapOfflineListActivity extends ChinaBaseActivity {
 
     @BindView(R.id.recycler)
     XRecyclerView recyclerView;

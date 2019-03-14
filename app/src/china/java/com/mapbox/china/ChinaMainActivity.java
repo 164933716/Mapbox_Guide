@@ -30,7 +30,7 @@ public class ChinaMainActivity extends BaseActivity {
         buttonContainer.addView(createButton("地图展示", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                jump(context, BasicMapActivity.class);
+                jump(context, ChinaBuildingPluginActivity.class);
             }
         }));
     }

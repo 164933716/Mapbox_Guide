@@ -9,11 +9,10 @@ import com.mapbox.mapboxsdk.plugins.building.BuildingPlugin;
 
 import butterknife.OnClick;
 
-public class BuildingPluginActivity extends com.mapbox.china.SimpleMapViewActivity {
+public class BuildingPluginActivity extends ChinaBaseActivity {
 
     @Override
     protected void onCreate() {
-        Mapbox.getInstance(context, App.globalToken);
         setContentView(R.layout.activity_map_global_building);
     }
 

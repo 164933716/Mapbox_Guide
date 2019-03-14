@@ -27,7 +27,7 @@ import androidx.appcompat.app.AlertDialog;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MapDownloadChinaActivity extends SimpleMapViewActivity {
+public class MapDownloadChinaActivity extends ChinaBaseActivity {
 
     @BindView(R.id.selectionBox)
     FrameLayout selectionBox;
@@ -40,7 +40,6 @@ public class MapDownloadChinaActivity extends SimpleMapViewActivity {
 
     @Override
     protected void onCreate() {
-        Mapbox.getInstance(context, App.chinaToken);
         setContentView(R.layout.activity_map_download);
         vEnter.setEnabled(false);
     }

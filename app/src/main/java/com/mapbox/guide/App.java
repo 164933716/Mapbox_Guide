@@ -13,7 +13,7 @@ public class App extends BaseApp {
     public static String apksToken = "pk.eyJ1IjoiZWxlY3Ryb3N0YXQtdGVzdCIsImEiOiJjamRhaHBhejkydXhlMnhvNmZhZTk3cjI1In0.9I3NYZF29F-XQHW1JIzIPg";
     public static String apksTokenNew = "pk.eyJ1Ijoibm9haHh1IiwiYSI6ImNqcWczbWhnZDJ6MXI0MnFxcDZ0ZGM3MmMifQ.pB5Q0Ho9wa9GGUSxS5VPJw";
 
-    public static String mapToken = toolToken;
+    public static String mapToken = chinaToken;
     public static App getInstance() {
         return context;
     }

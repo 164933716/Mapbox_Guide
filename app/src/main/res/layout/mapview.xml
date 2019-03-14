@@ -9,6 +9,6 @@
     mapbox:mapbox_cameraTargetLat="41.87827"
     mapbox:mapbox_cameraTargetLng="-87.62877"
     mapbox:mapbox_cameraTilt="60"
-    mapbox:mapbox_cameraZoom="16"
+    mapbox:mapbox_cameraZoom="10"
     tools:ignore="NotChinaMapView" />
 

@@ -73,6 +73,7 @@ public class RouteDownloadActivity extends GlobalBaseActivity {
             file.mkdirs();
         }
         offlineRouter = new MapboxOfflineRouter(file.getAbsolutePath());
+        showToast("正在获取TileVersions");
         offlineRouter.fetchAvailableTileVersions(Mapbox.getAccessToken(), new OnTileVersionsFoundCallback() {
             @Override
             public void onVersionsFound(@NonNull List<String> availableVersions) {
@@ -81,10 +82,12 @@ public class RouteDownloadActivity extends GlobalBaseActivity {
                     showLog("availableVersion   " + availableVersion);
                 }
                 if (availableVersions.size() > 0) {
+                    Collections.reverse(availableVersions);
                     selectedTile = availableVersions.get(0);
                     vEnter.setEnabled(true);
+                } else {
+                    showToast("TileVersions为空");
                 }
-                Collections.reverse(availableVersions);
                 initAdapter(availableVersions);
             }
 
@@ -146,7 +149,7 @@ public class RouteDownloadActivity extends GlobalBaseActivity {
     @OnClick(R.id.vEnter)
     public void onViewEnterClicked() {
         if (TextUtils.isEmpty(selectedTile)) {
-            showToast("请选择tile");
+            showToast("请先下载导航");
             return;
         }
         if (ContextCompat.checkSelfPermission(
@@ -158,7 +161,8 @@ public class RouteDownloadActivity extends GlobalBaseActivity {
     }
 
     private void downloadSelectedRegion() {
-        CacheUtil.getInstance().put("selectTile", selectedTile);
+        showToast("开始下载");
+        vEnter.setEnabled(false);
         int top = selectionBox.getTop() - mapView.getTop();
         int left = selectionBox.getLeft() - mapView.getLeft();
         int right = left + selectionBox.getWidth();
@@ -170,6 +174,8 @@ public class RouteDownloadActivity extends GlobalBaseActivity {
         BoundingBox boundingBox = BoundingBox.fromLngLats(
                 southWest.getLongitude(), southWest.getLatitude(),
                 northEast.getLongitude(), northEast.getLatitude());
+        CacheUtil.getInstance().put("selectTile", selectedTile);
+        CacheUtil.getInstance().put("boundingBox", boundingBox.toJson());
         OfflineTiles.Builder builder = OfflineTiles.builder()
                 .accessToken(Mapbox.getAccessToken())
                 .version(selectedTile)

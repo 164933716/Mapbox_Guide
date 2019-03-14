@@ -225,6 +225,38 @@ public class Plugin3DMapActivity extends AppCompatActivity implements OnMapReady
           ));
 
 ```
+
+### 添加图形
+```
+protected void onMapReady(Style style) {
+	super.onMapReady(style);
+	startRoute.setEnabled(false);
+	String boundingBoxJson = CacheUtil.getInstance().getString("boundingBox");
+	if (!TextUtils.isEmpty(boundingBoxJson)) {
+		List<List<Point>> POINTS = new ArrayList<>();
+		List<Point> points = new ArrayList<>();
+		BoundingBox boundingBox = BoundingBox.fromJson(boundingBoxJson);
+		Point northeast = boundingBox.northeast();
+		Point southwest = boundingBox.southwest();
+		Point latLng1 = Point.fromLngLat(northeast.longitude(), northeast.latitude());
+		Point latLng2 = Point.fromLngLat(southwest.longitude(), northeast.latitude());
+		Point latLng3 = Point.fromLngLat(southwest.longitude(), southwest.latitude());
+		Point latLng4 = Point.fromLngLat(northeast.longitude(), southwest.latitude());
+		points.add(latLng1);
+		points.add(latLng2);
+		points.add(latLng3);
+		points.add(latLng4);
+		points.add(latLng1);
+		POINTS.add(points);
+		GeoJsonSource offlineSource = new GeoJsonSource("custom_offline_source", Polygon.fromLngLats(POINTS));
+		style.addSource(offlineSource);
+		FillLayer fillLayer = new FillLayer("custom_offline_layer", "custom_offline_source");
+		fillLayer.withProperties(
+				fillColor(Color.parseColor("#80A4A4E5")));
+		style.addLayer(fillLayer);
+	}
+}
+```
 ### 添加Map点击事件
 ```
         mapboxMap.addOnMapClickListener(new MapboxMap.OnMapClickListener() {

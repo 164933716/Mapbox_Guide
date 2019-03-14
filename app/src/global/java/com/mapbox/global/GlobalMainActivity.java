@@ -1,10 +1,12 @@
 package com.mapbox.global;
 
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.ksy.ui.BaseActivity;
 import com.ksy.util.AndroidUtil;

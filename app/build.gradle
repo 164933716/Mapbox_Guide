@@ -19,12 +19,16 @@ android {
     flavorDimensions "default"
     productFlavors {
         global {
+            versionCode 1
+            versionName "1.1"
             applicationId "com.mapbox.guide.global"
             resValue "string", "appName", "Guide_Global"
             isGlobal = true
         }
 
         china {
+            versionCode 1
+            versionName "1.1"
             applicationId "com.mapbox.guide.china"
             resValue "string", "appName", "Guide_China"
             isGlobal = false

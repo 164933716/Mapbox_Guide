@@ -8,6 +8,8 @@ ChinaMap文档：v1.0
 
 - [plugins介绍地址](https://docs.mapbox.com/android/plugins/overview/china/)
 
+
+
 ## 前置条件
 - Android Studio
 - Mapbox Token
@@ -55,7 +57,6 @@ ChinaMap文档：v1.0
 ``` 
 
 ## 开发注意事项
-- Mapbox Token区分：China Token对应ChinaMapView控件，需设置ChinaStyle
 - 配置权限
 ```
     <uses-permission android:name="android.permission.INTERNET" />
@@ -67,6 +68,23 @@ ChinaMap文档：v1.0
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     
 ```
+- Mapbox Token区分,使用CN的token来进行服务请求,CN的token对应ChinaMapView控件，需设置ChinaStyle
+- 地图显示需要制定相关的显示风格Style，目前中国地图限定了只有3套官方的style:
+  
+  |  Style | URI  |
+  | ------------ | ------------ |
+  |  light-zh-v1 |  mapbox://styles/mapbox/light-zh-v1 |
+  |  dark-zh-v1 | mapbox://styles/mapbox/dark-zh-v1  |
+  |  streets-zh-v | mapbox://styles/mapbox/dark-zh-v1  |
+- 请求时需要配置URL以指向mapbox.cn，其中
+```
+  Web（GL JS）：mapboxgl.config.API_URL ='https://api.mapbox.cn';
+  
+  iOS SDK：MGLMapboxAPIBaseURL（参考：https：//www.mapbox.com/ios-sdk/api/3.6.0/infoplist-keys.html）DefaultFileSource :: setAPIBaseURL（）
+  
+  Android SK：MapboxMapOptions options = new MapboxMapOptions（）。apiBaseUrl（Constants.BASE_API_URL）com.mapbox.services.Constants.BASE_API_UR
+``` 
+
 
 ## 地图相关：
 ### 显示地图

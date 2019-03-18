@@ -16,17 +16,13 @@
         </activity>
 
         <activity
-            android:name="com.mapbox.china.BuildingPluginActivity"
+            android:name="com.mapbox.china.ChinaBuildingPluginActivity"
             android:screenOrientation="portrait" />
+
         <activity
             android:name="com.mapbox.china.ChinaBuildingPluginActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name="com.mapbox.china.SimpleChinaMapViewActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.mapbox.china.SimpleMapViewActivity"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name="com.mapbox.china.MapDownloadChinaActivity"
             android:screenOrientation="portrait" />
@@ -35,9 +31,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.mapbox.china.demo.BasicMapActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.mapbox.china.demo.Plugin3DMapActivity"
             android:screenOrientation="portrait" />
     </application>
 

@@ -49,7 +49,7 @@ public class GlobalMainActivity extends BaseActivity {
         createButton("模拟导航", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                jump(context, SimulationRouteActivityV.class);
+                jump(context, SimulationRouteActivity.class);
             }
         });
 

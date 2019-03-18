@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 public abstract class ChinaBaseActivity extends com.mapbox.guide.MapBaseActivity implements OnMapReadyCallback {
     @Override
     protected void onCreate() {
-//        Mapbox.getInstance(context, App.toolToken);
     }
 
     @Override

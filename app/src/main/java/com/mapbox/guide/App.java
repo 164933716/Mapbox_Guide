@@ -14,6 +14,7 @@ public class App extends BaseApp {
     public static String apksTokenNew = "pk.eyJ1Ijoibm9haHh1IiwiYSI6ImNqcWczbWhnZDJ6MXI0MnFxcDZ0ZGM3MmMifQ.pB5Q0Ho9wa9GGUSxS5VPJw";
 
     public static String mapToken = chinaToken;
+
     public static App getInstance() {
         return context;
     }
@@ -22,7 +23,7 @@ public class App extends BaseApp {
     public void onCreate() {
         super.onCreate();
         context = this;
-        Mapbox.getInstance(context,mapToken);
+        Mapbox.getInstance(context, mapToken);
         if (Mapbox.getTelemetry() != null) {
             Mapbox.getTelemetry().setDebugLoggingEnabled(true);
         }

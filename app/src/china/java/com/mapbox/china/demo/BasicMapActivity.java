@@ -19,6 +19,7 @@ import com.mapbox.android.core.permissions.PermissionsListener;
 import com.mapbox.android.core.permissions.PermissionsManager;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.FeatureCollection;
+import com.mapbox.geojson.LineString;
 import com.mapbox.geojson.Point;
 import com.mapbox.guide.App;
 import com.mapbox.guide.R;
@@ -34,6 +35,8 @@ import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
 import com.mapbox.mapboxsdk.plugins.china.constants.ChinaStyle;
 import com.mapbox.mapboxsdk.plugins.china.maps.ChinaMapView;
+import com.mapbox.mapboxsdk.style.layers.Layer;
+import com.mapbox.mapboxsdk.style.layers.LineLayer;
 import com.mapbox.mapboxsdk.style.layers.Property;
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory;
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
@@ -178,27 +181,27 @@ public class BasicMapActivity extends AppCompatActivity implements OnMapReadyCal
                                 PropertyFactory.iconImage("custom_marker")
                         ));
 
-//                List<Point> points1 = new ArrayList<>();
-//                List<Point> points2 = new ArrayList<>();
-//                points1.add(Point.fromLngLat(114.399720756497d, 30.480825277565145d));
-//                points1.add(Point.fromLngLat(111.499720756497d, 31.580825277565145d));
-//
-//                points2.add(Point.fromLngLat(100.399720756497d, 36.480825277565145d));
-//                points2.add(Point.fromLngLat(122.499720756497d, 33.580825277565145d));
-//                List<Feature> features = new ArrayList<>();
-//                Feature feature1 = Feature.fromGeometry(LineString.fromLngLats(points1));
-//                Feature feature2 = Feature.fromGeometry(LineString.fromLngLats(points2));
-//                features.add(feature1);
-//                features.add(feature2);
-//                style.addSource(new GeoJsonSource("custom_line_source", FeatureCollection.fromFeatures(features)));
-//                style.addLayer(new LineLayer("custom_line_layer", "custom_line_source").withProperties(
-//                        PropertyFactory.lineWidth(5f),
-//                        PropertyFactory.lineColor(Color.parseColor("#e55e5e"))
-//                ));
-//
-//                Layer custom_marker_layer = style.getLayer("custom_line_layer");
-//                custom_marker_layer.setProperties(PropertyFactory.visibility(Property.NONE));
-//
+                List<Point> points1 = new ArrayList<>();
+                List<Point> points2 = new ArrayList<>();
+                points1.add(Point.fromLngLat(114.399720756497d, 30.480825277565145d));
+                points1.add(Point.fromLngLat(111.499720756497d, 31.580825277565145d));
+
+                points2.add(Point.fromLngLat(100.399720756497d, 36.480825277565145d));
+                points2.add(Point.fromLngLat(122.499720756497d, 33.580825277565145d));
+                List<Feature> features = new ArrayList<>();
+                Feature feature1 = Feature.fromGeometry(LineString.fromLngLats(points1));
+                Feature feature2 = Feature.fromGeometry(LineString.fromLngLats(points2));
+                features.add(feature1);
+                features.add(feature2);
+                style.addSource(new GeoJsonSource("custom_line_source", FeatureCollection.fromFeatures(features)));
+                style.addLayer(new LineLayer("custom_line_layer", "custom_line_source").withProperties(
+                        PropertyFactory.lineWidth(5f),
+                        PropertyFactory.lineColor(Color.parseColor("#e55e5e"))
+                ));
+
+                Layer custom_marker_layer = style.getLayer("custom_line_layer");
+                custom_marker_layer.setProperties(PropertyFactory.visibility(Property.NONE));
+
 
                 style.addLayer(new SymbolLayer("custom_info_layer", "custom_markers_source").withProperties(
                         /* show image with id title based on the value of the name feature property */

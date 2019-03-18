@@ -23,7 +23,10 @@
             android:name="com.mapbox.global.SimpleMapViewActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.mapbox.global.SimulationRouteActivityV"
+            android:name="com.mapbox.global.SimulationRouteActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mapbox.global.RotationExtrusionActivity"
             android:screenOrientation="portrait" />
     </application>
 

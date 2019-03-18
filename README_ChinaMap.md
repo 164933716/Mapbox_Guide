@@ -187,8 +187,28 @@ public class Plugin3DMapActivity extends AppCompatActivity implements OnMapReady
         this.mapboxMap.setStyle(builder, new Style.OnStyleLoaded() {
             @Override
             public void onStyleLoaded(@NonNull Style style) {
-                BuildingPlugin buildingPlugin = new BuildingPlugin(mapView, mapboxMap, style);
-                buildingPlugin.setVisibility(true);
+                       //此处注释插件代码
+               //        BuildingPlugin buildingPlugin = new BuildingPlugin(mapView, mapboxMap, style);
+               //        buildingPlugin.setVisibility(true);
+                       FillExtrusionLayer fillExtrusionLayer = new FillExtrusionLayer("3d-buildings", "composite");
+                       fillExtrusionLayer.setSourceLayer("china_building");
+                       //此处注释extrude
+               //        fillExtrusionLayer.setFilter(eq(get("extrude"), "true"));
+                       fillExtrusionLayer.setMinZoom(15);
+                       fillExtrusionLayer.setProperties(
+                               fillExtrusionColor(Color.LTGRAY),
+                               fillExtrusionHeight(
+                                       interpolate(
+                                               exponential(1f),
+                                               zoom(),
+                                               stop(15, literal(0)),
+                                               stop(16, get("height"))
+                                       )
+                               ),
+                               fillExtrusionBase(get("min_height")),
+                               fillExtrusionOpacity(0.9f)
+                       );
+                       style.addLayer(fillExtrusionLayer);
             }
         });
     }

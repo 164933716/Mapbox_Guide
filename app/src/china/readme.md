@@ -76,15 +76,6 @@ ChinaMap文档：v1.0
   |  light-zh-v1 |  mapbox://styles/mapbox/light-zh-v1 |
   |  dark-zh-v1 | mapbox://styles/mapbox/dark-zh-v1  |
   |  streets-zh-v | mapbox://styles/mapbox/dark-zh-v1  |
-- 请求时需要配置URL以指向mapbox.cn，其中
-```
-  Web（GL JS）：mapboxgl.config.API_URL ='https://api.mapbox.cn';
-  
-  iOS SDK：MGLMapboxAPIBaseURL（参考：https：//www.mapbox.com/ios-sdk/api/3.6.0/infoplist-keys.html）DefaultFileSource :: setAPIBaseURL（）
-  
-  Android SK：MapboxMapOptions options = new MapboxMapOptions（）。apiBaseUrl（Constants.BASE_API_URL）com.mapbox.services.Constants.BASE_API_UR
-``` 
-
 
 ## 地图相关：
 ### 显示地图
